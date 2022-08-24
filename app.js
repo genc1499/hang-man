@@ -4,11 +4,27 @@ const app={};
 
 app.init = ()=>{
     app.getGuess();
-    app.count = 5;
+    app.count =5;
     app.word="hello";
     app.array=["_","_","_","_","_"];
     app.guessed=[];
+    app.wordGuess();
   
+}
+// Check word guess
+
+app.checkWordGuess=(word)=>{
+    if(word===app.word){
+        alert("Correct!")
+    }
+}
+
+app.wordGuess = () =>{
+    let guess=document.getElementById("guessWord");
+    guess.addEventListener('submit',(e)=>{
+        e.preventDefault();
+        app.checkWordGuess(e.target.childNodes[1].value);
+    })
 }
 
 // check guess
@@ -51,16 +67,21 @@ app.checkGuess = (word) =>{
 app.getGuess = () =>{
 
 
-let guess = document.querySelector("form");
+let guess = document.getElementById("guessLetter");
 guess.addEventListener('submit', function(e){
     e.preventDefault();
+    app.count-=1;
     let userGuess= e.target.childNodes[1].value;
+    guess.reset();
     app.checkGuess(userGuess);
+ 
 })
 
 
 
 }
+
+
 
 
 app.init();

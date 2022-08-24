@@ -14,14 +14,20 @@
     <main>
         <section>
             <div class="form-area">
-                <form>
-                    <input type="text" id="guess" placeholder="Enter a letter!">
+                <form id="guessLetter">
+                    <input type="text" id="guess" placeholder="Enter a letter!" class="letterGuess">
                     <label></label>
                     <button>Enter Guess</button>
                 </form>
 
-                <div class="user-guesses">
+                <form id="guessWord">
+                    <input type="text" id="word" placeholder="Enter the word!">
+                    <label for="word"></label>
+                    <button>Enter Guess</button>
+                </form>
 
+                <div class="user-guesses">
+                
                 </div>
 
             </div>
