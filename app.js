@@ -10,6 +10,7 @@ app.init = ()=>{
     app.guessed=[];
     app.wordGuess();
     app.count=0;
+    app.wordMatchCount=0;
   
 }
 
@@ -53,6 +54,10 @@ app.checkGuess = (letter) =>{
             console.log(app.array)
             app.guessed.push(letter);   
         }
+
+        if(app.array.join("")===app.word){
+            alert("You guessed the word!")
+        }
     
     })
 
@@ -68,21 +73,21 @@ app.checkGuess = (letter) =>{
 app.getGuess = () =>{
 
 
-let guess = document.getElementById("guessLetter");
-guess.addEventListener('submit', function(e){
-    e.preventDefault();
-    app.count+=1;
-    if(app.count>5){
-        alert(`No more Guess, the word was ${app.word}`);
-        
-    }
-    else{
-    console.log(app.count);
-    let userGuess= e.target.childNodes[1].value;
-    guess.reset();
-    app.checkGuess(userGuess);
-    }
-})
+    let guess = document.getElementById("guessLetter");
+    guess.addEventListener('submit', function(e){
+        e.preventDefault();
+        app.count+=1;
+        if(app.count>5){
+            alert(`No more Guess, the word was ${app.word}`);
+            
+        }
+        else{
+        console.log(app.count);
+        let userGuess= e.target.childNodes[1].value;
+        guess.reset();
+        app.checkGuess(userGuess.toLowerCase());
+        }
+    })
 
 
 
