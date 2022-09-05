@@ -4,21 +4,29 @@ const app={};
 
 
 app.init = ()=>{
+    app.getRandomWord();
     app.getGuess();
-    app.word="hellohello";
-    app.array= app.word.split("").map(item =>{return ("_")});
+    app.array=[];
     app.guessed=[];
     app.wordGuess();
     app.count=0;
     app.wordMatchCount=0;
-    app.displayWord(); 
 }
 
+app.getRandomWord=()=>{
+    fetch('https://random-word-api.herokuapp.com/word?length=6').then((response)=>response.json()).then((data)=>{console.log(data);
+
+    app.word=data[0];
+    app.array= app.word.split("").map(item =>{return ("_")});
+    app.displayWord(app.array)
+
+    })
+}
 
 // Display word so far...
-app.displayWord=()=>{
+app.displayWord=(array)=>{
     let hang = document.getElementById('hang-area');
-    hang.innerText=(app.array.join(" "));
+    hang.innerText=(array.join(" "));
 }
 
 // Check the word the user has entered as a guess
@@ -90,7 +98,7 @@ app.getGuess = () =>{
         let userGuess= e.target.childNodes[1].value;
         guess.reset();
         const guessList=document.getElementById('guesses');
-        
+
         // Display guessed letters
         guessList.append(userGuess+" ")
         app.checkGuess(userGuess.toLowerCase());
