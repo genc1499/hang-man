@@ -5,16 +5,19 @@ const app={};
 
 app.init = ()=>{
     app.getGuess();
-    app.word="hello";
-    app.array=["_","_","_","_","_"];
+    app.word="gay";
+    app.array=["_","_","_"];
     app.guessed=[];
     app.wordGuess();
     app.count=0;
     app.wordMatchCount=0;
-  
+    app.showWord();
 }
 
-
+app.showWord=()=>{
+    let hang = document.getElementById('hang-area');
+    hang.innerText=(app.array.join(" "));
+}
 
 // Check word guess
 app.checkWordGuess=(word)=>{
@@ -50,9 +53,12 @@ app.checkGuess = (letter) =>{
     console.log(newS);
     newS.forEach((item,index) =>{
         if(item===letter){
+     
             app.array[index]=item
             console.log(app.array)
-            app.guessed.push(letter);   
+            app.guessed.push(letter);  
+            let hang = document.getElementById('hang-area');
+            hang.innerText=app.array.join(" ");
         }
 
         if(app.array.join("")===app.word){
@@ -63,9 +69,6 @@ app.checkGuess = (letter) =>{
 
 }
 
-   
-    
-    
 
 }
 // get user's guess
@@ -85,6 +88,8 @@ app.getGuess = () =>{
         console.log(app.count);
         let userGuess= e.target.childNodes[1].value;
         guess.reset();
+        const guessList=document.getElementById('guesses');
+        guessList.append(userGuess+" ")
         app.checkGuess(userGuess.toLowerCase());
         }
     })
@@ -94,7 +99,12 @@ app.getGuess = () =>{
 }
 
 
+let val=1234;
+val=
 
+console.log(String(val).split(""));
+
+console.log(Number(val))
 
 
 
