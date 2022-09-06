@@ -21,7 +21,7 @@ app.displayGuessesLeft=()=>{
     turnsLeft.innerText=String(app.count);
 }
 
-
+// API Call to get new word
 app.getRandomWord=()=>{
     fetch('https://random-word-api.herokuapp.com/word?length=5').then((response)=>response.json()).then((data)=>{console.log(data);
 
@@ -31,8 +31,6 @@ app.getRandomWord=()=>{
 
     })
 }
-
-
 
 // Display word so far...
 app.displayWord=(array)=>{
@@ -61,6 +59,11 @@ app.wordGuess = () =>{
 
 // Check the letter the user has entered
 app.checkGuess = (letter) =>{
+
+    // Construct new regex object for each letterf guessed
+
+    let re = new RegExp(letter)
+
     // check if user has already entered a letter
     let checked = app.guessed.filter(item=>{
         return item===letter
@@ -69,6 +72,12 @@ app.checkGuess = (letter) =>{
     if(checked.length>0)
     {
         alert(`you already guessed letter ${letter} `);
+    }
+
+    // If test method is false, remove a turn and display the number of turns left
+    if(!re.test(app.word)){
+        app.count-=1;
+        app.displayGuessesLeft();
     }
 
 
@@ -81,33 +90,19 @@ app.checkGuess = (letter) =>{
                 console.log(app.array)
                 app.guessed.push(letter);  
                 let hang = document.getElementById('hang-area');
-                hang.innerText=app.array.join(" ");
-                console.log('corrrect', app.count);
-
-                // Keep track of letters that match 
-                const regex = /[a-zA-Z]/g; 
-                app.letterCount=app.array.join(" ").match(regex).length
-                
+                hang.innerText=app.array.join(" ");  
             }
         })
 
-        // If a letter is not found in array, letter guess doesnt match, remove a guess from count
-        if(app.letterCount===app.countCheck){
-            app.count-=1;
-            app.countCheck=app.letterCount;
-            console.log(app.count);
-            app.displayGuessesLeft();
-        }
-         
-        // Make into a function
-            if(app.array.join("")===app.word){
-                alert("You guessed the word!")
-            }
-
     }
 
+    // Make into a function
+    if(app.array.join("")===app.word){
+        alert("You guessed the word!")
+    }
 
 }
+
 // get user's letter guess
 
 app.getGuess = () =>{
