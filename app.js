@@ -11,6 +11,7 @@ app.init = ()=>{
     app.wordGuess();
     app.count=6;
     app.displayGuessesLeft(); 
+    app.reg = /[a-zA-Z]/ ;
 }
 
 app.displayGuessesLeft=()=>{
@@ -115,13 +116,20 @@ app.getGuess = () =>{
 
         else{
        
-        let userGuess= e.target.childNodes[1].value;
-        guess.reset();
-        const guessList=document.getElementById('guesses');
-        // app.count+=1;
-        // Display guessed letters
-        guessList.append(userGuess+" ")
-        app.checkGuess(userGuess.toLowerCase());
+            let userGuess= e.target.childNodes[1].value;
+            // Check if user input is a letter
+            if(app.reg.test(userGuess)){
+                guess.reset();
+                const guessList=document.getElementById('guesses');
+                // app.count+=1;
+                // Display guessed letters
+                guessList.append(userGuess+" ")
+                app.checkGuess(userGuess.toLowerCase());
+            }
+            else{
+                alert("Please enter a letter!")
+                guess.reset();
+            }
 
         }
     })
