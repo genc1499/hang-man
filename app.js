@@ -10,10 +10,7 @@ app.init = ()=>{
     app.guessed=[];
     app.wordGuess();
     app.count=6;
-    app.wordMatchCount=0;
-    app.displayGuessesLeft();
-    app.countCheck = 0;
-    app.letterCount=0;
+    app.displayGuessesLeft(); 
 }
 
 app.displayGuessesLeft=()=>{
@@ -23,7 +20,7 @@ app.displayGuessesLeft=()=>{
 
 // API Call to get new word
 app.getRandomWord=()=>{
-    fetch('https://random-word-api.herokuapp.com/word?length=5').then((response)=>response.json()).then((data)=>{console.log(data);
+    fetch('https://random-word-api.herokuapp.com/word?length=5').then((response)=>response.json()).then((data)=>{
 
     app.word=data[0];
     app.array= app.word.split("").map(item =>{return ("_")});
@@ -60,7 +57,7 @@ app.wordGuess = () =>{
 // Check the letter the user has entered
 app.checkGuess = (letter) =>{
 
-    // Construct new regex object for each letterf guessed
+    // Construct new regex object for each lette guessed
 
     let re = new RegExp(letter)
 
@@ -87,7 +84,6 @@ app.checkGuess = (letter) =>{
         wordArray.forEach((item,index) =>{
             if(item===letter){
                 app.array[index]=item
-                console.log(app.array)
                 app.guessed.push(letter);  
                 let hang = document.getElementById('hang-area');
                 hang.innerText=app.array.join(" ");  
