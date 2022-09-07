@@ -45,6 +45,8 @@ app.displayWord=(array)=>{
 app.checkWordGuess=(word)=>{
     if(word===app.word){
         alert("You guessed the word!")
+        app.displayWord(app.word.split(""));
+     
     }
     else{
         alert("Sorry, that's not the word!");
@@ -66,17 +68,21 @@ app.checkGuess = (letter) =>{
     // Construct new regex object for each letter guessed
 
     let re = new RegExp(letter)
+    
 
     // check if user has already entered a letter
     let checked = app.guessed.filter(item=>{
         return item===letter
     })
 
-    app.guessed.push(letter);
+    if(!re.test(app.guessed)){
+        app.guessed.push(letter);
+        console.log("duplicate")
+    }
 
     if(checked.length>0 && app.guessed.length>1)
     {
-        app.guessed.splice(0,app.guessed.length-1);
+
         alert(`you already guessed letter ${letter} `);
         
     }
@@ -86,7 +92,6 @@ app.checkGuess = (letter) =>{
         app.count-=1;
         let hanger = document.querySelector('.wrapper')
         let draw = document.createElement('div');
-        
         draw.classList.add(`${app.hangMan[app.drawCount]}`);
         hanger.append(draw);
         app.drawCount+=1;
@@ -110,6 +115,7 @@ app.checkGuess = (letter) =>{
 
     // Make into a function
     if(app.array.join("")===app.word){
+        app.displayWord(app.word.split(""));
         alert("You guessed the word!")
     }
 
@@ -128,14 +134,11 @@ app.getGuess = () =>{
        
         if(app.count===0 && !re.test(app.word)){
           
-            alert(`No more Guess, the word was ${app.word}`);   
+            alert(`No more Guesses, the word was ${app.word}`);   
         }
 
         else{
-       
-           
             // Check if user input is a letter
-          
             if(app.reg.test(userGuess)){
                 guess.reset();
                 const guessList=document.getElementById('guesses');
