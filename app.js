@@ -157,6 +157,8 @@ app.getGuess = () =>{
     })
 }
 
+
+
 // Initialize app
 app.init();
 
